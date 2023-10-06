@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (C) 2006 - 2013 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -36,7 +36,7 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once '../Classes/PHPExcel.php';
 
 
 // Create new PHPExcel object
@@ -62,26 +62,10 @@ $sharedStyle1 = new PHPExcel_Style();
 $sharedStyle2 = new PHPExcel_Style();
 
 $sharedStyle1->applyFromArray(
-	array('fill' 	=> array(
-								'type'		=> PHPExcel_Style_Fill::FILL_SOLID,
-								'color'		=> array('argb' => 'FFCCFFCC')
-							),
-		  'borders' => array(
-								'bottom'	=> array('style' => PHPExcel_Style_Border::BORDER_THIN),
-								'right'		=> array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
-							)
-		 ));
+	['fill' 	=> ['type'		=> PHPExcel_Style_Fill::FILL_SOLID, 'color'		=> ['argb' => 'FFCCFFCC']], 'borders' => ['bottom'	=> ['style' => PHPExcel_Style_Border::BORDER_THIN], 'right'		=> ['style' => PHPExcel_Style_Border::BORDER_MEDIUM]]]);
 
 $sharedStyle2->applyFromArray(
-	array('fill' 	=> array(
-								'type'		=> PHPExcel_Style_Fill::FILL_SOLID,
-								'color'		=> array('argb' => 'FFFFFF00')
-							),
-		  'borders' => array(
-								'bottom'	=> array('style' => PHPExcel_Style_Border::BORDER_THIN),
-								'right'		=> array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
-							)
-		 ));
+	['fill' 	=> ['type'		=> PHPExcel_Style_Fill::FILL_SOLID, 'color'		=> ['argb' => 'FFFFFF00']], 'borders' => ['bottom'	=> ['style' => PHPExcel_Style_Border::BORDER_THIN], 'right'		=> ['style' => PHPExcel_Style_Border::BORDER_MEDIUM]]]);
 
 $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle1, "A1:T100");
 $objPHPExcel->getActiveSheet()->setSharedStyle($sharedStyle2, "C5:R95");

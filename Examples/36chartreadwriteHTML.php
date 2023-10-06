@@ -13,7 +13,7 @@ date_default_timezone_set('Europe/London');
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (C) 2006 - 2013 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,13 +31,13 @@ date_default_timezone_set('Europe/London');
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
 
 /** Include path **/
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/../Classes/');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../Classes/');
 
 /** PHPExcel_IOFactory */
 include 'PHPExcel/IOFactory.php';
@@ -46,7 +46,7 @@ include 'PHPExcel/IOFactory.php';
 //	Change these values to select the Rendering library that you wish to use
 //		and its directory location on your server
 $rendererName = PHPExcel_Settings::CHART_RENDERER_JPGRAPH;
-$rendererLibrary = 'jpgraph3.5.0b1/src/';
+$rendererLibrary = 'jpgraph3.5.0b1/src';
 $rendererLibraryPath = '/php/libraries/Charts/' . $rendererLibrary;
 
 
@@ -66,9 +66,9 @@ $inputFileType = 'Excel2007';
 $inputFileNames = 'templates/36write*.xlsx';
 
 if ((isset($argc)) && ($argc > 1)) {
-	$inputFileNames = array();
+	$inputFileNames = [];
 	for($i = 1; $i < $argc; ++$i) {
-		$inputFileNames[] = dirname(__FILE__) . '/templates/' . $argv[$i];
+		$inputFileNames[] = __DIR__ . '/templates/' . $argv[$i];
 	}
 } else {
 	$inputFileNames = glob($inputFileNames);
@@ -106,13 +106,13 @@ foreach($inputFileNames as $inputFileName) {
 					$caption = 'Untitled';
 				}
 				echo '    ' , $chartName , ' - ' , $caption , EOL;
-				echo str_repeat(' ',strlen($chartName)+3);
+				echo str_repeat(' ',strlen((string) $chartName)+3);
 				$groupCount = $chart->getPlotArea()->getPlotGroupCount();
 				if ($groupCount == 1) {
 					$chartType = $chart->getPlotArea()->getPlotGroupByIndex(0)->getPlotType();
 					echo '    ' , $chartType , EOL;
 				} else {
-					$chartTypes = array();
+					$chartTypes = [];
 					for($i = 0; $i < $groupCount; ++$i) {
 						$chartTypes[] = $chart->getPlotArea()->getPlotGroupByIndex($i)->getPlotType();
 					}

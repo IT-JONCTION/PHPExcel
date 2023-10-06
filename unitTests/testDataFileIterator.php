@@ -2,6 +2,7 @@
 
 class testDataFileIterator implements Iterator
 {
+
     protected $file;
     protected $key = 0;
     protected $current;
@@ -50,14 +51,14 @@ class testDataFileIterator implements Iterator
         do {
             //    Only take lines that contain test data and that aren't commented out
             $testDataRow = trim(fgets($this->file));
-        } while (($testDataRow > '') && ($testDataRow{0} === '#'));
+        } while (($testDataRow > '') && ($testDataRow[0] === '#'));
 
         //    Discard any comments at the end of the line
-        list($testData) = explode('//', $testDataRow);
+        [$testData] = explode('//',$testDataRow);
 
         //    Split data into an array of individual values and a result
         $dataSet = $this->_getcsv($testData, ',', "'");
-        foreach ($dataSet as &$dataValue) {
+        foreach($dataSet as &$dataValue) {
             $dataValue = $this->_parseDataValue($dataValue);
         }
         unset($dataValue);
@@ -68,40 +69,39 @@ class testDataFileIterator implements Iterator
     private function _getcsv($input, $delimiter, $enclosure)
     {
         if (function_exists('str_getcsv')) {
-            return str_getcsv($input, $delimiter, $enclosure);
+            return str_getcsv((string) $input, $delimiter, $enclosure);
         }
 
         $temp = fopen('php://memory', 'rw');
-        fwrite($temp, $input);
+        fwrite($temp, (string) $input);
         rewind($temp);
-        $data = fgetcsv($temp, strlen($input), $delimiter, $enclosure);
+        $data = fgetcsv($temp, strlen((string) $input), $delimiter, $enclosure);
         fclose($temp);
 
         if ($data === false) {
-            $data = array(null);
+            $data = [null];
         }
 
         return $data;
     }
 
-    private function _parseDataValue($dataValue)
-    {
+    private function _parseDataValue($dataValue) {
         //    discard any white space
-        $dataValue = trim($dataValue);
+        $dataValue = trim((string) $dataValue);
         //    test for the required datatype and convert accordingly
         if (!is_numeric($dataValue)) {
-            if ($dataValue == '') {
-                $dataValue = null;
-            } elseif ($dataValue == '""') {
+            if($dataValue == '') {
+                $dataValue = NULL;
+            } elseif($dataValue == '""') {
                 $dataValue = '';
-            } elseif (($dataValue[0] == '"') && ($dataValue[strlen($dataValue)-1] == '"')) {
-                $dataValue = substr($dataValue, 1, -1);
-            } elseif (($dataValue[0] == '{') && ($dataValue[strlen($dataValue)-1] == '}')) {
-                $dataValue = explode(';', substr($dataValue, 1, -1));
-                foreach ($dataValue as &$dataRow) {
-                    if (strpos($dataRow, '|') !== false) {
-                        $dataRow = explode('|', $dataRow);
-                        foreach ($dataRow as &$dataCell) {
+            } elseif(($dataValue[0] == '"') && ($dataValue[strlen($dataValue)-1] == '"')) {
+                $dataValue = substr($dataValue,1,-1);
+            } elseif(($dataValue[0] == '{') && ($dataValue[strlen($dataValue)-1] == '}')) {
+                $dataValue = explode(';',substr($dataValue,1,-1));
+                foreach($dataValue as &$dataRow) {
+                    if (str_contains($dataRow,'|')) {
+                        $dataRow = explode('|',$dataRow);
+                        foreach($dataRow as &$dataCell) {
                             $dataCell = $this->_parseDataValue($dataCell);
                         }
                         unset($dataCell);
@@ -112,25 +112,20 @@ class testDataFileIterator implements Iterator
                 unset($dataRow);
             } else {
                 switch (strtoupper($dataValue)) {
-                    case 'NULL':
-                        $dataValue = null;
-                        break;
-                    case 'TRUE':
-                        $dataValue = true;
-                        break;
-                    case 'FALSE':
-                        $dataValue = false;
-                        break;
+                    case 'NULL' :  $dataValue = NULL; break;
+                    case 'TRUE' :  $dataValue = TRUE; break;
+                    case 'FALSE' : $dataValue = FALSE; break;
                 }
             }
         } else {
-            if (strpos($dataValue, '.') !== false) {
+            if (str_contains($dataValue,'.')) {
                 $dataValue = (float) $dataValue;
             } else {
                 $dataValue = (int) $dataValue;
             }
         }
 
-        return $dataValue;
+		return $dataValue;
     }
+
 }

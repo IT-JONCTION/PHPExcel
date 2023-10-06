@@ -9,7 +9,7 @@
 error_reporting(E_ALL);
 
 /**	Include path		**/
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/../Classes/');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../Classes/');
 
 ?>
 <h1>Quadratic Equation Solver</h1>
@@ -17,13 +17,13 @@ set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/../
 Enter the coefficients for the Ax<sup>2</sup> + Bx + C = 0
 <table border="0" cellpadding="0" cellspacing="0">
 	<tr><td><b>A&nbsp;</b></td>
-		<td><input name="A" type="text" size="8" value="<?php echo (isset($_POST['A'])) ? htmlentities($_POST['A']) : ''; ?>"></td>
+		<td><input name="A" type="text" size="8" value="<?php echo (isset($_POST['A'])) ? htmlentities((string) $_POST['A']) : ''; ?>"></td>
 	</tr>
 	<tr><td><b>B&nbsp;</b></td>
-		<td><input name="B" type="text" size="8" value="<?php echo (isset($_POST['B'])) ? htmlentities($_POST['B']) : ''; ?>"></td>
+		<td><input name="B" type="text" size="8" value="<?php echo (isset($_POST['B'])) ? htmlentities((string) $_POST['B']) : ''; ?>"></td>
 	</tr>
 	<tr><td><b>C&nbsp;</b></td>
-		<td><input name="C" type="text" size="8" value="<?php echo (isset($_POST['C'])) ? htmlentities($_POST['C']) : ''; ?>"></td>
+		<td><input name="C" type="text" size="8" value="<?php echo (isset($_POST['C'])) ? htmlentities((string) $_POST['C']) : ''; ?>"></td>
 	</tr>
 </table>
 <input name="submit" type="submit" value="calculate"><br />

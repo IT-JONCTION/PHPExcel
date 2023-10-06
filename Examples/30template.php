@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (C) 2006 - 2013 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -35,7 +35,7 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** PHPExcel_IOFactory */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel/IOFactory.php';
+require_once '../Classes/PHPExcel/IOFactory.php';
 
 
 
@@ -47,19 +47,7 @@ $objPHPExcel = $objReader->load("templates/30template.xls");
 
 
 echo date('H:i:s') , " Add new data to the template" , EOL;
-$data = array(array('title'		=> 'Excel for dummies',
-					'price'		=> 17.99,
-					'quantity'	=> 2
-				   ),
-			  array('title'		=> 'PHP for dummies',
-					'price'		=> 15.99,
-					'quantity'	=> 1
-				   ),
-			  array('title'		=> 'Inside OOP',
-					'price'		=> 12.95,
-					'quantity'	=> 1
-				   )
-			 );
+$data = [['title'		=> 'Excel for dummies', 'price'		=> 17.99, 'quantity'	=> 2], ['title'		=> 'PHP for dummies', 'price'		=> 15.99, 'quantity'	=> 1], ['title'		=> 'Inside OOP', 'price'		=> 12.95, 'quantity'	=> 1]];
 
 $objPHPExcel->getActiveSheet()->setCellValue('D1', PHPExcel_Shared_Date::PHPToExcel(time()));
 

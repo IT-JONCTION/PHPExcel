@@ -2,7 +2,7 @@
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (C) 2006 - 2013 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
@@ -35,7 +35,7 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once '../Classes/PHPExcel.php';
 
 // Create new PHPExcel object
 echo date('H:i:s').' Create new PHPExcel object'.EOL;
@@ -59,63 +59,7 @@ $objPHPExcel->getActiveSheet()->setCellValue('A1', 'Year')
                               ->setCellValue('C1', 'Country')
                               ->setCellValue('D1', 'Sales');
 
-$dataArray = array(array('2010',	'Q1',	'United States',	790),
-                   array('2010',	'Q2',	'United States',	730),
-                   array('2010',	'Q3',	'United States',	860),
-                   array('2010',	'Q4',	'United States',	850),
-                   array('2011',	'Q1',	'United States',	800),
-                   array('2011',	'Q2',	'United States',	700),
-                   array('2011',	'Q3',	'United States',	900),
-                   array('2011',	'Q4',	'United States',	950),
-                   array('2010',	'Q1',	'Belgium',			380),
-                   array('2010',	'Q2',	'Belgium',			390),
-                   array('2010',	'Q3',	'Belgium',			420),
-                   array('2010',	'Q4',	'Belgium',			460),
-                   array('2011',	'Q1',	'Belgium',			400),
-                   array('2011',	'Q2',	'Belgium',			350),
-                   array('2011',	'Q3',	'Belgium',			450),
-                   array('2011',	'Q4',	'Belgium',			500),
-                   array('2010',	'Q1',	'UK',				690),
-                   array('2010',	'Q2',	'UK',				610),
-                   array('2010',	'Q3',	'UK',				620),
-                   array('2010',	'Q4',	'UK',				600),
-                   array('2011',	'Q1',	'UK',				720),
-                   array('2011',	'Q2',	'UK',				650),
-                   array('2011',	'Q3',	'UK',				580),
-                   array('2011',	'Q4',	'UK',				510),
-                   array('2010',	'Q1',	'France',			510),
-                   array('2010',	'Q2',	'France',			490),
-                   array('2010',	'Q3',	'France',			460),
-                   array('2010',	'Q4',	'France', 			590),
-                   array('2011',	'Q1',	'France',			620),
-                   array('2011',	'Q2',	'France',			650),
-                   array('2011',	'Q3',	'France',			415),
-                   array('2011',	'Q4',	'France', 			570),
-                   array('2010',	'Q1',	'Germany',			720),
-                   array('2010',	'Q2',	'Germany',			680),
-                   array('2010',	'Q3',	'Germany',			640),
-                   array('2010',	'Q4',	'Germany',			660),
-                   array('2011',	'Q1',	'Germany',			680),
-                   array('2011',	'Q2',	'Germany',			620),
-                   array('2011',	'Q3',	'Germany',			710),
-                   array('2011',	'Q4',	'Germany',			690),
-                   array('2010',	'Q1',	'Spain',			510),
-                   array('2010',	'Q2',	'Spain',			490),
-                   array('2010',	'Q3',	'Spain',			470),
-                   array('2010',	'Q4',	'Spain',			420),
-                   array('2011',	'Q1',	'Spain',			460),
-                   array('2011',	'Q2',	'Spain',			390),
-                   array('2011',	'Q3',	'Spain',			430),
-                   array('2011',	'Q4',	'Spain',			415),
-                   array('2010',	'Q1',	'Italy',			440),
-                   array('2010',	'Q2',	'Italy',			410),
-                   array('2010',	'Q3',	'Italy',			420),
-                   array('2010',	'Q4',	'Italy',			450),
-                   array('2011',	'Q1',	'Italy',			430),
-                   array('2011',	'Q2',	'Italy',			370),
-                   array('2011',	'Q3',	'Italy',			350),
-                   array('2011',	'Q4',	'Italy',			335),
-                  );
+$dataArray = [['2010', 'Q1', 'United States', 790], ['2010', 'Q2', 'United States', 730], ['2010', 'Q3', 'United States', 860], ['2010', 'Q4', 'United States', 850], ['2011', 'Q1', 'United States', 800], ['2011', 'Q2', 'United States', 700], ['2011', 'Q3', 'United States', 900], ['2011', 'Q4', 'United States', 950], ['2010', 'Q1', 'Belgium', 380], ['2010', 'Q2', 'Belgium', 390], ['2010', 'Q3', 'Belgium', 420], ['2010', 'Q4', 'Belgium', 460], ['2011', 'Q1', 'Belgium', 400], ['2011', 'Q2', 'Belgium', 350], ['2011', 'Q3', 'Belgium', 450], ['2011', 'Q4', 'Belgium', 500], ['2010', 'Q1', 'UK', 690], ['2010', 'Q2', 'UK', 610], ['2010', 'Q3', 'UK', 620], ['2010', 'Q4', 'UK', 600], ['2011', 'Q1', 'UK', 720], ['2011', 'Q2', 'UK', 650], ['2011', 'Q3', 'UK', 580], ['2011', 'Q4', 'UK', 510], ['2010', 'Q1', 'France', 510], ['2010', 'Q2', 'France', 490], ['2010', 'Q3', 'France', 460], ['2010', 'Q4', 'France', 590], ['2011', 'Q1', 'France', 620], ['2011', 'Q2', 'France', 650], ['2011', 'Q3', 'France', 415], ['2011', 'Q4', 'France', 570], ['2010', 'Q1', 'Germany', 720], ['2010', 'Q2', 'Germany', 680], ['2010', 'Q3', 'Germany', 640], ['2010', 'Q4', 'Germany', 660], ['2011', 'Q1', 'Germany', 680], ['2011', 'Q2', 'Germany', 620], ['2011', 'Q3', 'Germany', 710], ['2011', 'Q4', 'Germany', 690], ['2010', 'Q1', 'Spain', 510], ['2010', 'Q2', 'Spain', 490], ['2010', 'Q3', 'Spain', 470], ['2010', 'Q4', 'Spain', 420], ['2011', 'Q1', 'Spain', 460], ['2011', 'Q2', 'Spain', 390], ['2011', 'Q3', 'Spain', 430], ['2011', 'Q4', 'Spain', 415], ['2010', 'Q1', 'Italy', 440], ['2010', 'Q2', 'Italy', 410], ['2010', 'Q3', 'Italy', 420], ['2010', 'Q4', 'Italy', 450], ['2011', 'Q1', 'Italy', 430], ['2011', 'Q2', 'Italy', 370], ['2011', 'Q3', 'Italy', 350], ['2011', 'Q4', 'Italy', 335]];
 $objPHPExcel->getActiveSheet()->fromArray($dataArray, NULL, 'A2');
 
 // Set title row bold

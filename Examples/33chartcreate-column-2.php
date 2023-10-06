@@ -13,7 +13,7 @@ date_default_timezone_set('Europe/London');
 /**
  * PHPExcel
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (C) 2006 - 2013 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,33 +31,19 @@ date_default_timezone_set('Europe/London');
  *
  * @category   PHPExcel
  * @package    PHPExcel
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt	LGPL
  * @version    ##VERSION##, ##DATE##
  */
 
 /** PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once '../Classes/PHPExcel.php';
 
 
 $objPHPExcel = new PHPExcel();
 $objWorksheet = $objPHPExcel->getActiveSheet();
 $objWorksheet->fromArray(
-	array(
-		array('',		'',		'Budget',	'Forecast',	'Actual'),
-		array('2010',	'Q1',   47,   		44,			43		),
-		array('',		'Q2',   56,   		53,			50		),
-		array('',		'Q3',   52,   		46,			45		),
-		array('',		'Q4',   45,   		40,			40		),
-		array('2011',	'Q1',   51,   		42,			46		),
-		array('',		'Q2',   53,   		58,			56		),
-		array('',		'Q3',   64,   		66,			69		),
-		array('',		'Q4',   54,   		55,			56		),
-		array('2012',	'Q1',   49,   		52,			58		),
-		array('',		'Q2',   68,   		73,			86		),
-		array('',		'Q3',   72,   		78,			0		),
-		array('',		'Q4',   50,   		60,			0		),
-	)
+	[['', '', 'Budget', 'Forecast', 'Actual'], ['2010', 'Q1', 47, 44, 43], ['', 'Q2', 56, 53, 50], ['', 'Q3', 52, 46, 45], ['', 'Q4', 45, 40, 40], ['2011', 'Q1', 51, 42, 46], ['', 'Q2', 53, 58, 56], ['', 'Q3', 64, 66, 69], ['', 'Q4', 54, 55, 56], ['2012', 'Q1', 49, 52, 58], ['', 'Q2', 68, 73, 86], ['', 'Q3', 72, 78, 0], ['', 'Q4', 50, 60, 0]]
 );
 
 //	Set the Labels for each data series we want to plot
@@ -67,11 +53,13 @@ $objWorksheet->fromArray(
 //		Number of datapoints in series
 //		Data values
 //		Data Marker
-$dataSeriesLabels = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1),	//	'Budget'
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', NULL, 1),	//	'Forecast'
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$E$1', NULL, 1),	//	'Actual'
-);
+$dataseriesLabels = [
+    new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$C$1', NULL, 1),
+    //	'Budget'
+    new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$D$1', NULL, 1),
+    //	'Forecast'
+    new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$E$1', NULL, 1),
+];
 //	Set the X-Axis Labels
 //		Datatype
 //		Cell reference for data
@@ -79,9 +67,7 @@ $dataSeriesLabels = array(
 //		Number of datapoints in series
 //		Data values
 //		Data Marker
-$xAxisTickValues = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$B$13', NULL, 12),	//	Q1 to Q4 for 2010 to 2012
-);
+$xAxisTickValues = [new PHPExcel_Chart_DataSeriesValues('String', 'Worksheet!$A$2:$B$13', NULL, 12)];
 //	Set the Data values for each data series we want to plot
 //		Datatype
 //		Cell reference for data
@@ -89,18 +75,14 @@ $xAxisTickValues = array(
 //		Number of datapoints in series
 //		Data values
 //		Data Marker
-$dataSeriesValues = array(
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', NULL, 12),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', NULL, 12),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$E$2:$E$13', NULL, 12),
-);
+$dataSeriesValues = [new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$C$2:$C$13', NULL, 12), new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$D$2:$D$13', NULL, 12), new PHPExcel_Chart_DataSeriesValues('Number', 'Worksheet!$E$2:$E$13', NULL, 12)];
 
 //	Build the dataseries
 $series = new PHPExcel_Chart_DataSeries(
 	PHPExcel_Chart_DataSeries::TYPE_BARCHART,		// plotType
 	PHPExcel_Chart_DataSeries::GROUPING_CLUSTERED,	// plotGrouping
 	range(0, count($dataSeriesValues)-1),			// plotOrder
-	$dataSeriesLabels,								// plotLabel
+	$dataseriesLabels,								// plotLabel
 	$xAxisTickValues,								// plotCategory
 	$dataSeriesValues								// plotValues
 );
@@ -109,7 +91,7 @@ $series = new PHPExcel_Chart_DataSeries(
 $series->setPlotDirection(PHPExcel_Chart_DataSeries::DIRECTION_COL);
 
 //	Set the series in the plot area
-$plotArea = new PHPExcel_Chart_PlotArea(NULL, array($series));
+$plotarea = new PHPExcel_Chart_PlotArea(NULL, [$series]);
 //	Set the chart legend
 $legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_BOTTOM, NULL, false);
 
@@ -123,7 +105,7 @@ $chart = new PHPExcel_Chart(
 	'chart1',		// name
 	$title,			// title
 	$legend,		// legend
-	$plotArea,		// plotArea
+	$plotarea,		// plotArea
 	true,			// plotVisibleOnly
 	0,				// displayBlanksAs
 	$xAxisLabel,	// xAxisLabel

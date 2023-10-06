@@ -1,9 +1,8 @@
 <?php
-
 /**
- * PHPExcel_Cell_DataType
+ * PHPExcel
  *
- * Copyright (c) 2006 - 2015 PHPExcel
+ * Copyright (c) 2006 - 2013 PHPExcel
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,56 +20,52 @@
  *
  * @category   PHPExcel
  * @package    PHPExcel_Cell
- * @copyright  Copyright (c) 2006 - 2015 PHPExcel (http://www.codeplex.com/PHPExcel)
+ * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
  * @version    ##VERSION##, ##DATE##
+ */
+
+
+/**
+ * PHPExcel_Cell_DataType
+ *
+ * @category   PHPExcel
+ * @package    PHPExcel_Cell
+ * @copyright  Copyright (c) 2006 - 2013 PHPExcel (http://www.codeplex.com/PHPExcel)
  */
 class PHPExcel_Cell_DataType
 {
     /* Data types */
-    const TYPE_STRING2  = 'str';
-    const TYPE_STRING   = 's';
-    const TYPE_FORMULA  = 'f';
-    const TYPE_NUMERIC  = 'n';
-    const TYPE_BOOL     = 'b';
-    const TYPE_NULL     = 'null';
-    const TYPE_INLINE   = 'inlineStr';
-    const TYPE_ERROR    = 'e';
+    final public const TYPE_STRING2  = 'str';
+    final public const TYPE_STRING   = 's';
+    final public const TYPE_FORMULA  = 'f';
+    final public const TYPE_NUMERIC  = 'n';
+    final public const TYPE_BOOL     = 'b';
+    final public const TYPE_NULL     = 'null';
+    final public const TYPE_INLINE   = 'inlineStr';
+    final public const TYPE_ERROR    = 'e';
 
     /**
      * List of error codes
-     *
-     * @var array
      */
-    private static $errorCodes = array(
-        '#NULL!'  => 0,
-        '#DIV/0!' => 1,
-        '#VALUE!' => 2,
-        '#REF!'   => 3,
-        '#NAME?'  => 4,
-        '#NUM!'   => 5,
-        '#N/A'    => 6
-    );
+    private static array $_errorCodes = ['#NULL!'  => 0, '#DIV/0!' => 1, '#VALUE!' => 2, '#REF!'   => 3, '#NAME?'  => 4, '#NUM!'   => 5, '#N/A'    => 6];
 
     /**
      * Get list of error codes
      *
      * @return array
      */
-    public static function getErrorCodes()
-    {
-        return self::$errorCodes;
+    public static function getErrorCodes() {
+        return self::$_errorCodes;
     }
 
     /**
      * DataType for value
      *
      * @deprecated  Replaced by PHPExcel_Cell_IValueBinder infrastructure, will be removed in version 1.8.0
-     * @param       mixed  $pValue
      * @return      string
      */
-    public static function dataTypeForValue($pValue = null)
-    {
+    public static function dataTypeForValue(mixed $pValue = null) {
         return PHPExcel_Cell_DefaultValueBinder::dataTypeForValue($pValue);
     }
 
@@ -91,7 +86,7 @@ class PHPExcel_Cell_DataType
         $pValue = PHPExcel_Shared_String::Substring($pValue, 0, 32767);
 
         // we require that newline is represented as "\n" in core, not as "\r\n" or "\r"
-        $pValue = str_replace(array("\r\n", "\r"), "\n", $pValue);
+        $pValue = str_replace(["\r\n", "\r"], "\n", $pValue);
 
         return $pValue;
     }
@@ -106,10 +101,11 @@ class PHPExcel_Cell_DataType
     {
         $pValue = (string) $pValue;
 
-        if (!array_key_exists($pValue, self::$errorCodes)) {
+        if ( !array_key_exists($pValue, self::$_errorCodes) ) {
             $pValue = '#NULL!';
         }
 
         return $pValue;
     }
+
 }

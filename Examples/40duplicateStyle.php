@@ -10,14 +10,14 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 date_default_timezone_set('Europe/London');
 
 /** Include PHPExcel */
-require_once dirname(__FILE__) . '/../Classes/PHPExcel.php';
+require_once '../Classes/PHPExcel.php';
 
 echo date('H:i:s') , " Create new PHPExcel object" , EOL;
 $objPHPExcel = new PHPExcel();
 $worksheet = $objPHPExcel->getActiveSheet();
 
 echo date('H:i:s') , " Create styles array" , EOL;
-$styles = array();
+$styles = [];
 for ($i = 0; $i < 10; $i++) {
     $style = new PHPExcel_Style();
     $style->getFont()->setSize($i + 4);
