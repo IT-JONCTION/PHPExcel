@@ -674,11 +674,16 @@ class PHPExcel_Style_NumberFormat extends PHPExcel_Style_Supervisor implements P
 			}
 		}
 
-		// Additional formatting provided by callback function
-		if ($callBack !== null) {
-			[$writerInstance, $function] = $callBack;
-			$value = $writerInstance->$function($value, $formatColor);
-		}
+        if ($callBack !== null) {
+            if (is_array($callBack) && count($callBack) === 2 && is_object($callBack[0])) {
+                list($writerInstance, $function) = $callBack;
+                $value = $writerInstance->$function($value, $formatColor);
+            } elseif ($callBack instanceof Closure) {
+                $value = $callBack($value, $formatColor);
+            } else {
+                // Handle other situations or throw an exception
+            }
+        }
 
 		return $value;
 	}

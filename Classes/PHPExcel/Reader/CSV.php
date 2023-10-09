@@ -136,7 +136,7 @@ class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_R
 	 */
 	protected function _skipBOM()
 	{
-		rewind($fileHandle);
+		rewind($this->_fileHandle);
 
 		switch ($this->_inputEncoding) {
 			case 'UTF-8':
@@ -179,7 +179,7 @@ class PHPExcel_Reader_CSV extends PHPExcel_Reader_Abstract implements PHPExcel_R
 			throw new PHPExcel_Reader_Exception($pFilename . " is an Invalid Spreadsheet file.");
 		}
 		$fileHandle = $this->_fileHandle;
-		
+
 		// Skip BOM, if any
 		$this->_skipBOM();
 

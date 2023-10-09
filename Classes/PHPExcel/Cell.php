@@ -768,6 +768,9 @@ class PHPExcel_Cell implements \Stringable
 	 */
 	public static function stringFromColumnIndex($pColumnIndex = 0)
 	{
+        if(is_string($pColumnIndex))  {
+            return $pColumnIndex;
+        };
 		//	Using a lookup cache adds a slight memory overhead, but boosts speed
 		//	caching using a static within the method is faster than a class static,
 		//		though it's additional memory overhead
