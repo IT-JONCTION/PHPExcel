@@ -762,7 +762,7 @@ class PHPExcel_Writer_Excel2007_Worksheet extends PHPExcel_Writer_Excel2007_Writ
 			if (count($columns) > 0) {
 				foreach($columns as $columnID => $column) {
 					$rules = $column->getRules();
-					if (count($rules > 0)) {
+					if (count($rules) > 0) {
 						$objWriter->startElement('filterColumn');
 							$objWriter->writeAttribute('colId',	$pSheet->getAutoFilter()->getColumnOffset($columnID));
 
